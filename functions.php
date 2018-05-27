@@ -8,8 +8,8 @@
 //enqueue custom javascript
 
 function firman_global_js(){
-    wp_enqueue_script( 'firman-base64', get_stylesheet_directory_uri() . '/js/base64_encoder.js', array( 'jquery' ), '1.0', false );
-    wp_enqueue_script( 'register-warranty', get_stylesheet_directory_uri() . '/js/register_warranty.js', array( 'jquery' ), '3.0', false );
+	wp_enqueue_script( 'firman-base64', get_stylesheet_directory_uri() . '/js/base64_encoder.js', array( 'jquery' ), '1.0', false );
+	wp_enqueue_script( 'register-warranty', get_stylesheet_directory_uri() . '/js/register_warranty.js', array( 'jquery' ), '3.5', false );
 }
 
 add_action( 'wp_enqueue_scripts', 'firman_global_js' );
@@ -158,3 +158,18 @@ function shop_filter_cat($query) {
         }
     }
  }
+
+ /*
+  * product card classes
+  * */
+require( dirname( __FILE__ ) . '/product_card_meta/class-product-card-helper.php' );
+
+//check if Meta box plugin activated
+if ( class_exists( 'RWMB_Loader' ) ) {
+	require( dirname( __FILE__ ) . '/product_card_meta/class-product-card-meta.php' );
+}
+
+//check if Contactform 7 plugin activated;
+if( class_exists( 'WPCF7') ){
+	require( dirname( __FILE__ ) . '/product_card_meta/class-product-model-auto-option.php' );
+}
