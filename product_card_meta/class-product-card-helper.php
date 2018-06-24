@@ -32,6 +32,25 @@ class Firman_Product_Card_Helper {
 
 		return $model;
 
+	}
+
+	public static function get_attachment_pdf_file( $file_name ){
+		$args = array(
+			'post_type'   => 'attachment',
+			'post_status' => 'inherit',
+			'post_mime_type' => 'application/pdf',
+			'posts_per_page' => -1,
+			'meta_query'  => array(
+				array(
+					'meta_key'     => '_wp_attached_file',
+					'value' => $file_name,
+					'compare' => 'LIKE'
+				)
+			)
+		);
+		$query_result = get_posts($args);
+
+		return $query_result;
 
 	}
 }

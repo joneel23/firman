@@ -7,12 +7,14 @@
 
 //enqueue custom javascript
 
-function firman_global_js(){
+function firman_global_scripts(){
 	wp_enqueue_script( 'firman-base64', get_stylesheet_directory_uri() . '/js/base64_encoder.js', array( 'jquery' ), '1.0', false );
 	wp_enqueue_script( 'register-warranty', get_stylesheet_directory_uri() . '/js/register_warranty.js', array( 'jquery' ), '3.5', false );
+	wp_enqueue_script( 'custom-script-global', get_stylesheet_directory_uri() . '/js/global_init.js', array( 'jquery' ), '5.5', false );
+	wp_enqueue_style( 'custom-style', get_stylesheet_directory_uri() . '/css/custom-style.min.css', array(), '21.8' );
 }
 
-add_action( 'wp_enqueue_scripts', 'firman_global_js' );
+add_action( 'wp_enqueue_scripts', 'firman_global_scripts', 99 );
 
 function custom_search_result(  ) {
 
@@ -159,17 +161,32 @@ function shop_filter_cat($query) {
     }
  }
 
- /*
-  * product card classes
-  * */
-require( dirname( __FILE__ ) . '/product_card_meta/class-product-card-helper.php' );
+
+
+/*
+ * product card classes
+ * */
+add_action( 'woocommerce_init', 'firman_override_wc_template_hooks', 100 );
+
+function firman_override_wc_template_hooks() {
+	remove_action( 'woocommerce_after_single_product_summary', 'woocommerce_output_product_data_tabs', 10 );
+	add_action( 'firman_after_single_product_summary', 'woocommerce_output_product_data_tabs', 10 );
+}
+
+require_once( dirname( __FILE__ ) . '/product_card_meta/custom-wc-template-functions.php' );
 
 //check if Meta box plugin activated
 if ( class_exists( 'RWMB_Loader' ) ) {
 	require( dirname( __FILE__ ) . '/product_card_meta/class-product-card-meta.php' );
 }
 
-//check if Contactform 7 plugin activated;
+require_once( dirname( __FILE__ ) . '/product_card_meta/class-product-card-helper.php' );
+require_once( dirname( __FILE__ ) . '/product_card_meta/class-single-product-register-sidebar.php' );
+require_once( dirname( __FILE__ ) . '/product_card_meta/class-single-product-footer-template.php' );
+
+//check if Contactform 7 exist;
 if( class_exists( 'WPCF7') ){
-	require( dirname( __FILE__ ) . '/product_card_meta/class-product-model-auto-option.php' );
+	require_once( dirname( __FILE__ ) . '/product_card_meta/class-product-model-auto-option.php' );
 }
+
+require_once( dirname( __FILE__ ) . '/product_card_meta/class-custom-shortcodes.php' );

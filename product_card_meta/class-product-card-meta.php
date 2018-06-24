@@ -58,7 +58,7 @@ class Firman_Product_Card_Meta {
 	public function firman_product_list_class( $classes ) {
 		global $product;
 
-		if ( ! empty( $product ) && is_archive() ) {
+		if ( ! empty( $product ) && ( is_archive() || is_product() ) ) {
 
 			$product_id   = $product->get_id();
 			$card_enabled = rwmb_meta( 'card_activate', $product_id );
@@ -82,13 +82,18 @@ class Firman_Product_Card_Meta {
 
         $product_attributes = ( $product ) ? $this->firman_card_get_attributes_value( $product ) : '';
         $post_title         = get_the_title( $post_id );
-        $post_title_split   = explode( ' ', $post_title );
 
-		$product_cat_accessories = has_term( 'parts-accessories', 'product_cat', $post_id );
+        $post_title_split   = explode( ' ', $post_title );
 
 		$model              = ( ! empty( $post_title_split ) ) ? $post_title_split[0] : '';
 		$product_attributes = ( ! empty( $product_attributes ) ) ? $product_attributes : '';
-		$custom_title       = ( ! empty( $post_title_split ) ) ? $post_title_split[1] . ' Watt Generator' : '';
+
+		$custom_title = '';
+		if ( ! empty( $post_title ) ) {
+			$custom_title = ( ! empty( $post_title_split ) ) ? $post_title_split[1] . ' Watt Generator' : '';
+		}
+
+		$product_cat_accessories = has_term( 'parts-accessories', 'product_cat', $post_id );
 
         if( $product_cat_accessories ){
 	        $model =  ( ! empty( $post_title_split ) ) ? array_pop($post_title_split) : '';
@@ -128,6 +133,12 @@ class Firman_Product_Card_Meta {
 		        'name'        => esc_html__( 'Custom Title', 'firman' ),
 		        'placeholder' => esc_html__( 'custom title', 'firman' ),
 		        'std'         => trim( $custom_title ),
+	        ),
+	        array(
+		        'id'          => $prefix . 'warranty',
+		        'type'        => 'text',
+		        'name'        => esc_html__( 'Warranty', 'firman' ),
+		        'placeholder' => esc_html__( '', 'firman' ),
 	        ),
 	        array(
 		        'id'   => $prefix . 'summary',

@@ -67,6 +67,34 @@
 
 	<?php wp_head(); ?>
 
+    <style>
+        /*//custom css remove in prodution*/
+        /*.woocommerce-main-image{*/
+            /*float: right;*/
+            /*width: 80%;*/
+            /*position: relative;*/
+        /*}*/
+        /*.woocommerce div.product div.images div.thumbnails{*/
+            /*float: left;*/
+            /*position: absolute;*/
+            /*height: 500px;*/
+            /*top: 0;*/
+        /*}*/
+        /*.owl-carousel .owl-stage{*/
+            /*display: inline-grid;*/
+        /*}*/
+        /*.woocommerce .thumbnails .owl-nav .owl-prev{*/
+            /*top: -3%;*/
+            /*left: 33px;*/
+
+        /*}*/
+        /*.woocommerce .thumbnails .owl-nav .owl-next{*/
+            /*right: inherit;*/
+            /*top: inherit;*/
+            /*left: 32px;*/
+        /*}*/
+    </style>
+
 </head>
 <?php 
 	$global_layout 	= 'boxed-layout'; 

@@ -1,0 +1,128 @@
+.rating-container,
+.card-model {
+  text-align: center;
+}
+.rating-container {
+  margin-bottom: 10px;
+}
+.rating-container .custom_prod_reviews,
+.rating-container .rating-desc {
+  display: inline;
+}
+.custom_prod_reviews .p-w-r {
+  display: inline-block !important;
+}
+.p-w-r .pr-snippet .pr-snippet-stars-png .pr-snippet-rating-decimal,
+.p-w-r .pr-category-snippet__total {
+  display: none !important;
+}
+.hide {
+  display: none;
+}
+.show {
+  display: block;
+}
+.card-model {
+  border-bottom: 1px solid #c3c3c3;
+  box-shadow: 0px 2px 0px #ffffff;
+  padding-bottom: 6px;
+  margin-bottom: 4px;
+  font-size: 25px;
+  color: #414141;
+}
+.rating-desc {
+  padding-left: 7px;
+  font-size: 18px;
+  color: #414141;
+}
+.custom_prod_reviews {
+  position: relative;
+  top: 5px;
+}
+.woocommerce ul.products li.product h3 {
+  font-weight: normal;
+  margin-top: 5px;
+  color: #414141;
+  margin-top: 25px;
+  margin-bottom: 0;
+}
+.woocommerce ul.products li.product .product-meta {
+  padding-top: 0 !important;
+}
+.attributes {
+  margin: auto 0;
+}
+.attributes li {
+  font-size: 14px;
+  line-height: 22px;
+}
+.attributes table {
+  margin-bottom: 20px;
+}
+.attributes tr {
+  font-size: 14px;
+  line-height: 26px;
+}
+.attributes td {
+  width: 40%;
+  vertical-align: top;
+  border-bottom: 1px solid #c3c3c3;
+}
+.woocommerce .products ul {
+  margin-bottom: 10px;
+}
+.cert {
+  font-size: 14px;
+  font-weight: 600;
+  color: black;
+  text-align: center;
+  margin-bottom: 0;
+}
+.text-center {
+  text-align: center;
+}
+.cert-image {
+  text-align: center;
+  margin-top: 2px;
+}
+.cert-image li {
+  display: inline-block;
+}
+.btn-container {
+  padding-top: 10px;
+}
+.woocommerce a.button.card-button {
+  background-color: #feb61b;
+}
+.woocommerce a.button.card-button:hover {
+  background-color: #323232;
+}
+/*WC archive product lists*/
+.woocommerce ul.products.columns-3 li.product,
+.woocommerce-page ul.products.columns-3 li.product {
+  width: 32%;
+}
+.woocommerce ul.products li.product,
+.woocommerce-page ul.products li.product {
+  margin: 0 2% 15px 0;
+  padding: 0;
+}
+.product-item-container {
+  padding: 20px 30px;
+  background-color: #f1f1f1;
+}
+.woocommerce .upsells.products ul li.product.last,
+.woocommerce-page .upsells ul.products li.product.last,
+.woocommerce .upsells.products ul.products li.product.last,
+.woocommerce-page .upsells.products ul.products li.product.last,
+.woocommerce .related ul li.product.last,
+.woocommerce-page .related ul li.product.last,
+.woocommerce .related ul.products li.product.last,
+.woocommerce-page .related ul.products li.product.last,
+.woocommerce ul.products li.last,
+.woocommerce-page ul.products li.last {
+  margin-right: 0 !important;
+}
+ul.products img {
+  background-color: transparent !important;
+}

@@ -11,8 +11,11 @@
 
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
-get_header('shop'); 
 
+//column number for product page
+$GLOBALS['woocommerce_loop'] = array(3);
+
+get_header('shop');
 
 $shop_page_id = wc_get_page_id( 'shop' );
 
@@ -117,32 +120,33 @@ $layout = mx_get_page_layout($shop_page_id);
      jQuery(document).ready(function($){
         var products = $(".products");
         var arr_render = [];
-        products.find('li').each(function(index){
+
+        products.find(' > li').each(function(index){
             var class_str = $(this).attr('class').split(' ');
             var post_id = class_str[0].split('-')[1];
-           
+
             if(post_id != "category"){
-            	 arr_render.push({
-	                locale: 'en_US',
-	                merchant_group_id: '77567',
-	                page_id: post_id,
-	                merchant_id: '412359',
-	                api_key: 'adea19b5-b8b5-4faf-b3c7-6282f0d0c87d',
-	                review_wrapper_url: 'https://www.firmanpowerequipment.com/write-a-review/?pr_page_id='+post_id,
-	                components: {
-	                    CategorySnippet: 'category-snippet-'+post_id
-	                }
-            	});
+                arr_render.push({
+                    locale: 'en_US',
+                    merchant_group_id: '77567',
+                    page_id: post_id,
+                    merchant_id: '412359',
+                    api_key: 'adea19b5-b8b5-4faf-b3c7-6282f0d0c87d',
+                    review_wrapper_url: 'https://www.firmanpowerequipment.com/write-a-review/?pr_page_id='+post_id,
+                    components: {
+                        CategorySnippet: 'category-snippet-'+post_id
+                    }
+                });
 
             }
-            
-            if(index == (products.find('li').length - 1))
+
+            if(index == (products.find(' > li').length - 1))
             {
                 POWERREVIEWS.display.render(arr_render);
             }
-            
+
         });
-        
+
        
     });
 </script>

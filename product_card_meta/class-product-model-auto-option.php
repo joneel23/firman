@@ -227,12 +227,10 @@ class Firman_Product_Model_Auto_Option {
 				$this->unset_pid_on_removed_product( $post->ID );
 			}
 
-			if ( $new_status === 'publish' ) {
-				$this->reset_pid_on_published_product( $post->ID );
+			if ( $new_status === 'draft' || $new_status === 'publish' ) {
 
-			}
-			if ( $new_status === 'draft' ) {
 				$this->add_new_model_on_insert_product( $post->ID );
+
 			}
 			if ( $new_status === 'auto-draft' ) {
 
@@ -251,17 +249,24 @@ class Firman_Product_Model_Auto_Option {
 		$check_model_data = in_array( $post_id, array_column( $get_model_data, 'pid' ) );
 
 		if ( ! $check_model_data ) {
-			if ( ! empty( $get_model_data ) && ! empty( get_the_title( $post_id ) ) ) {
+
+			$check_allowed_product_cat = has_term(
+				array( 'parts-accessories', 'performance-series', 'hybrid-series', 'whisper-series' ),
+				'product_cat',
+				$post_id );
+
+			if ( $check_allowed_product_cat && ! empty( $get_model_data ) && ! empty( get_the_title( $post_id ) ) ) {
 
 				$product_cat_accessories = has_term( 'parts-accessories', 'product_cat', $post_id );
-				$accessories             = true;
+
+				$accessories = true;
 				if ( ! $product_cat_accessories ) {
 					$accessories = false;
 				}
 				$card_model = Firman_Product_Card_Helper::get_product_generator_model( $post_id, $accessories );
 
 				$new_model_data[] = array(
-					'pid'   => $post_id,
+					'pid' => $post_id,
 					'model' => $card_model
 				);
 
