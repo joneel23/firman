@@ -107,24 +107,28 @@ if ( $card_enabled ) :
 			echo $card_summary;
 		} else {
 			echo wc_get_product_category_list( $product->get_id(), ', ', '<p class="text-center"><span class="posted_in">' . _n( '<b>Series:</b>', '<b>Series:</b>', $size, 'woocommerce' ) . ' ', '</span></p>' );
-            echo '<p class="text-center"><b>Product Type:</b> ' . $card_product_type . '</p>';
+            if( ! $terms ) {
+	            echo '<p class="text-center"><b>Product Type:</b> ' . $card_product_type . '</p>';
+            }
 			echo $card_summary;
         }
 
 		?>
 
 		</div>
-
+        <?php
+        /**
+         * woocommerce_after_shop_loop_item_title hook
+         *
+         * @hooked woocommerce_template_loop_price - 10
+         */
+        do_action( 'woocommerce_after_shop_loop_item_title' );
+        ?>
         <div class="btn-container">
 	        <?php
 
 	        if ( $terms ) {
-                /**
-                 * woocommerce_after_shop_loop_item_title hook
-                 *
-                 * @hooked woocommerce_template_loop_price - 10
-                 */
-                do_action( 'woocommerce_after_shop_loop_item_title' );
+
 
                 if( class_exists( 'YITH_WCWL_UI' ) ){
                     echo mx_get_wishlist();

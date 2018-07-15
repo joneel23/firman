@@ -121,7 +121,7 @@ $layout = mx_get_page_layout();
                 }
 
             });
-        },2000);
+        },3000);
 
 
         //display
@@ -156,7 +156,7 @@ $layout = mx_get_page_layout();
         });
         setTimeout(function(){
             $('#pr-reviewsnippet').prepend("<span class='rating-desc'>Rating </span>");
-        },2000);
+        },3500);
 
 	});
 

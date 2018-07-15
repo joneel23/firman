@@ -49,29 +49,29 @@ if ( $post->post_excerpt ) {
 if ( $card_enabled ) :
 ?>
 <div class="row">
-    <div class="col-lg-4 prod-meta">
+    <div class="col-lg-5 prod-meta">
 		<?php
         if( ! $terms ) {
-	        echo wc_get_product_category_list( $product->get_id(), ', ', '<p class="single-product-meta"><span class="posted_in">' . _n( 'Series:', 'Series:', $size, 'woocommerce' ) . ' ', '</span></p>' );
+	        echo wc_get_product_category_list( $product->get_id(), ', ', '<p class="single-product-meta"><span class="posted_in">' . _n( '<strong>Series:</strong>', '<strong>Series:</strong>', $size, 'woocommerce' ) . ' ', '</span></p>' );
 		}
         ?>
 
 		<?php if ( $product->is_type( array( 'simple', 'variable' ) ) && $product->get_sku() ) : ?>
-            <p class="single-product-meta"><span itemprop="productID" class="sku_wrapper"><?php _e( 'SKU:', 'woocommerce' ); ?> <span
+            <p class="single-product-meta"><span itemprop="productID" class="sku_wrapper"><?php _e( '<strong>SKU:</strong>', 'woocommerce' ); ?> <span
                             class="sku"><?php echo $product->get_sku(); ?></span></span></p>
 
 		<?php endif; ?>
 
     </div>
-    <div class="col-lg-8 prod-meta">
+    <div class="col-lg-7 prod-meta">
 
 		<?php
         if ( ! $terms ) {
-	        echo '<div class="cert-wrapper"><span>Certificatitons:</span> ' . $certification . '</div>';
+	        echo '<div class="cert-wrapper"><span><strong>Certificatitons:</strong></span> ' . $certification . '</div>';
 
-	        echo '<p class="single-product-meta">Product Type: ' . $card_type . '</p>';
+	        echo '<p class="single-product-meta"><strong>Product Type:</strong> ' . $card_type . '</p>';
         } else {
-	        echo '<p class="single-product-meta">Warranty: ' . $card_warranty . '</p>';
+	        echo '<p class="single-product-meta"><strong>Warranty:</strong> ' . $card_warranty . '</p>';
         }
         ?>
 
@@ -80,7 +80,7 @@ if ( $card_enabled ) :
 		<?php if ( mx_get_options_key( 'woocommerce-share-enable' ) == "on" ) : ?>
             <div class="woocommerce-share">
 				<?php if ( intval( mx_get_options_key( 'woocommerce-share-type' ) ) == 0 ) {
-					echo 'Share Your Experience: ' . do_shortcode( '[share link="' . esc_url( get_permalink() ) . '" title="' . esc_attr( get_the_title() ) . '"]' );
+					echo '<strong>Share Your Experience:</strong> ' . do_shortcode( '[share link="' . esc_url( get_permalink() ) . '" title="' . esc_attr( get_the_title() ) . '"]' );
 				} else { ?>
 					<?php echo mx_get_options_key( 'woocommerce-share-content' ); ?>
 				<?php } ?>

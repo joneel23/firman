@@ -6,6 +6,32 @@ jQuery(document).ready(function ($) {
 
     //$('.zoom').magnify();
 
+    //mobile
+    $("#mobile-filter button").click(function(){
+
+       if( $(this).hasClass('off-filter') ) {
+           var text = $(this).attr('data-textShow');
+           $(this).text("Hide filter");
+           $(this).removeClass('off-filter');
+           $('aside:first').removeClass('off-filter');
+       } else {
+           var text = $(this).attr('data-textHide');
+           $(this).text("Display filter");
+           $(this).addClass('off-filter');
+           $('aside:first').addClass('off-filter');
+       }
+    });
+    // $("#mobile-filter button").toggle(
+    //     function(){
+    //         var text = $(this).data('textShow');
+    //         $(this).text(text);
+    //     },
+    //     function(){
+    //         var text = $(this).data('textHide');
+    //         $(this).text(text);
+    //     }
+    // );
+
     var global_init = {
 
         run: function () {
@@ -13,6 +39,11 @@ jQuery(document).ready(function ($) {
         },
 
         equalizeHeightContainer: function (ele, add_height ) {
+            //reset height
+            $(ele).map(function (i, e) {
+                    return $(e).css('height', 'auto');
+            });
+
             var maxHeight = $(ele).map(function (i, e) {
                 return $(e).height() + add_height;
             }).get();
@@ -53,11 +84,38 @@ jQuery(document).ready(function ($) {
                 } // End if
 
             });
+        },
+
+        checkWindowWidth: function(width){
+            if( width <= 360 ){
+                $('#tab-title-description').find('a').text('Desc');
+                $('#tab-title-specification').find('a').text('Specs');
+                $('#tab-title-additional_information').find('a').text('Additional Info');
+            }
         }
 
     };
 
     global_init.run();
+    var archive_meta_height, single_meta_height;
+    var innerWidth = window.innerWidth;
+    global_init.checkWindowWidth(innerWidth);
+
+    $(window).resize(function(){
+        var $body = $('body');
+        var width = $(window).width();
+        console.log(innerWidth);
+        global_init.checkWindowWidth(width);
+
+        if($body.hasClass('archive') ){
+            global_init.equalizeHeightContainer('.product-item-container', 30);
+        }
+        if($body.hasClass('single-product') ){
+            global_init.equalizeHeightContainer('.product-item-container', 30);
+
+        }
+        $('.product-item-container').find('.btn-container').addClass('pos-absolute');
+    });
 
     setTimeout(function () {
         var $body = $('body');

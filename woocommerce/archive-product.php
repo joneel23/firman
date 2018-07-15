@@ -35,8 +35,11 @@ $layout = mx_get_page_layout($shop_page_id);
 <div id="page-content-wrap">   
 	<div id="main" class="container">
 		<div class="row">
-        <?php if($layout == 2) { ?> 
-            <aside class="col-md-3 col-sm-4"><?php
+        <?php if($layout == 2) { ?>
+            <div id="mobile-filter" class="btn-container">
+                <button class="button card-button off-filter">Display filter</button>
+            </div>
+            <aside class="col-md-3 col-sm-4 off-filter"><?php
 				/**
 				 * woocommerce_sidebar hook
 				 *

@@ -10,8 +10,8 @@
 function firman_global_scripts(){
 	wp_enqueue_script( 'firman-base64', get_stylesheet_directory_uri() . '/js/base64_encoder.js', array( 'jquery' ), '1.0', false );
 	wp_enqueue_script( 'register-warranty', get_stylesheet_directory_uri() . '/js/register_warranty.js', array( 'jquery' ), '3.5', false );
-	wp_enqueue_script( 'custom-script-global', get_stylesheet_directory_uri() . '/js/global_init.js', array( 'jquery' ), '5.5', false );
-	wp_enqueue_style( 'custom-style', get_stylesheet_directory_uri() . '/css/custom-style.min.css', array(), '21.8' );
+	wp_enqueue_script( 'custom-script-global', get_stylesheet_directory_uri() . '/js/global_init.js', array( 'jquery' ), '5.7.4', false );
+	wp_enqueue_style( 'custom-style', get_stylesheet_directory_uri() . '/css/custom-style.min.css', array(), '5.5.3' );
 }
 
 add_action( 'wp_enqueue_scripts', 'firman_global_scripts', 99 );
