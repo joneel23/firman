@@ -16,6 +16,8 @@ class Firman_Product_Model_Auto_Option {
 
 	private $set_product_generator;
 
+	private $sort_options = false;
+
 	private function get_product_accessories(){
 		$this->set_product_accesories = $this->get_product_ids_by_cat( array(
 			'parts-accessories'
@@ -78,7 +80,7 @@ class Firman_Product_Model_Auto_Option {
 		), array( 'name-attr' => true, 'selectable-values' => true, ) );
 	}
 
-	public function firman_get_product_model_id($tag ){
+	public function firman_get_product_model_id( $tag ){
 
 		if ( empty( $tag->name ) ) {
 			return '';
@@ -167,6 +169,23 @@ class Firman_Product_Model_Auto_Option {
 //		}
 
 		$get_model_data = get_option( 'firman_product_model' );
+		//$merge_data = array_map("unserialize", array_unique(array_map("serialize", $merge_data)));
+
+		//fix unsorted model
+		$sort = $this->sort_options;
+
+		if( $sort == true ){
+
+			$hyper_series = $this->categorize_model_data( $get_model_data, '/(H)/m' );
+			$performance_series =  $this->categorize_model_data( $get_model_data, '/(P)/m' );
+			$whisper_series =  $this->categorize_model_data( $get_model_data, '/(W)/m' );
+			$accessories =  $this->categorize_model_data( $get_model_data, '/^[0-9]/m' );
+
+			$get_model_data = array_merge( $accessories, $hyper_series, $performance_series, $whisper_series );
+
+			update_option( 'firman_product_model', $get_model_data, true );
+
+		}
 
 		//generate custom options by model and page id
 		if ( $get_model_data !== false ) {
@@ -271,6 +290,13 @@ class Firman_Product_Model_Auto_Option {
 				);
 
 				$add_new_model = array_merge( $get_model_data, $new_model_data );
+
+				$hyper_series = $this->categorize_model_data( $add_new_model, '/(H)/m' );
+				$performance_series =  $this->categorize_model_data( $add_new_model, '/(P)/m' );
+				$whisper_series =  $this->categorize_model_data( $add_new_model, '/(W)/m' );
+				$accessories =  $this->categorize_model_data( $add_new_model, '/^[0-9]/m' );
+
+				$add_new_model = array_merge( $accessories, $hyper_series, $performance_series, $whisper_series );
 
 				update_option( 'firman_product_model', $add_new_model, true );
 
@@ -415,6 +441,34 @@ class Firman_Product_Model_Auto_Option {
 			return '';
 		}
 
+	}
+
+	/**
+	 * Query products to get gets by category slugs
+	 *
+	 * @param array $model_data
+	 * @param string $pattern
+	 *
+	 * @return array
+	 */
+	private function categorize_model_data( $model_data, $pattern ) {
+
+		$extract_model_data = array();
+
+		$i = 0;
+		foreach ( $model_data as $data ) {
+
+			if ( preg_match( $pattern, $data['model'] ) ) {
+				$extract_model_data[] = array(
+					'pid'   => $data['pid'],
+					'model' => $data['model']
+				);
+				unset( $model_data[ $i ] );
+			}
+			$i ++;
+		}
+
+		return $extract_model_data;
 	}
 }
 
