@@ -105,6 +105,8 @@ class Firman_Product_Card_Meta {
             $model = '';
         }
 
+        $get_accessories = Firman_Product_Card_Helper::get_product_acessories();
+
         //set meta box fields default
         $meta_boxes_fields_default = array(
             array(
@@ -139,6 +141,23 @@ class Firman_Product_Card_Meta {
 		        'type'        => 'text',
 		        'name'        => esc_html__( 'Warranty', 'firman' ),
 		        'placeholder' => esc_html__( '', 'firman' ),
+	        ),
+	        array(
+		        'name'            => 'Related Accessories',
+		        'id'              => 'related_accessories',
+		        'type'            => 'select_advanced',
+		        // Array of 'value' => 'Label' pairs
+		        'options'         => $get_accessories,
+		        // Allow to select multiple value?
+		        'multiple'        => true,
+		        // Placeholder text
+		        'placeholder'     => 'Select accessories',
+		        // Display "Select All / None" button?
+		        'select_all_none' => false,
+		        // select2 configuration. See https://select2.org/configuration
+		        'js_options'      => array(
+			        'containerCssClass' => 'select-accessories-option',
+		        ),
 	        ),
 	        array(
 		        'id'   => $prefix . 'summary',

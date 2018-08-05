@@ -174,15 +174,14 @@ function firman_override_wc_template_hooks() {
 }
 
 require_once( dirname( __FILE__ ) . '/product_card_meta/custom-wc-template-functions.php' );
+require_once( dirname( __FILE__ ) . '/product_card_meta/class-product-card-helper.php' );
+require_once( dirname( __FILE__ ) . '/product_card_meta/class-single-product-register-sidebar.php' );
+require_once( dirname( __FILE__ ) . '/product_card_meta/class-single-product-footer-template.php' );
 
 //check if Meta box plugin activated
 if ( class_exists( 'RWMB_Loader' ) ) {
 	require( dirname( __FILE__ ) . '/product_card_meta/class-product-card-meta.php' );
 }
-
-require_once( dirname( __FILE__ ) . '/product_card_meta/class-product-card-helper.php' );
-require_once( dirname( __FILE__ ) . '/product_card_meta/class-single-product-register-sidebar.php' );
-require_once( dirname( __FILE__ ) . '/product_card_meta/class-single-product-footer-template.php' );
 
 //check if Contactform 7 exist;
 if( class_exists( 'WPCF7') ){

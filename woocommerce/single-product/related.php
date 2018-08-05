@@ -24,6 +24,8 @@ $posts_per_page = 4;
 $columns = 4;
 $woocommerce_loop['columns'] 	= $columns;
 
+
+
 if ( $related_products ) : ?>
 
 	<div class="related products">

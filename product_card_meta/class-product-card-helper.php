@@ -53,4 +53,27 @@ class Firman_Product_Card_Helper {
 		return $query_result;
 
 	}
+
+	public static function get_product_acessories(){
+		$args = array(
+			'post_type'     => 'product',
+			'post_status'   => 'publish',
+			'posts_per_page'=> -1,
+			'tax_query' => array(
+				array(
+					'taxonomy' => 'product_cat',
+					'field'    => 'slug',
+					'terms'    => array( 'parts-accessories' ),
+				),
+			)
+		);
+		$query_result = get_posts($args);
+
+		$accessories = array();
+		foreach( $query_result as $post ){
+			$accessories[$post->ID] = $post->post_title;
+		}
+
+		return $accessories;
+	}
 }
