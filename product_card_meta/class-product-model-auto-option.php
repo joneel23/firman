@@ -16,7 +16,7 @@ class Firman_Product_Model_Auto_Option {
 
 	private $set_product_generator;
 
-	private $sort_options = false;
+	private $sort_options = true;
 
 	private function get_product_accessories(){
 		$this->set_product_accesories = $this->get_product_ids_by_cat( array(
@@ -168,15 +168,24 @@ class Firman_Product_Model_Auto_Option {
 //			var_dump($get_model_cache_data);
 //		}
 
+		//$model_data     = $this->store_default_model_id_option();
+		// The option doesn't exists, so we add the data
+		//update_option( 'firman_product_model', $model_data, true );
+
 		$get_model_data = get_option( 'firman_product_model' );
+
 		//$merge_data = array_map("unserialize", array_unique(array_map("serialize", $merge_data)));
 
 		//fix unsorted model
 		$sort = $this->sort_options;
 
-		if( $sort == true ){
+		if( $sort == false ){
+			//delete_option('firman_product_model', true);
+			//$hyper_series = $this->categorize_model_data( $get_model_data, '/(H)/m' );
 
-			$hyper_series = $this->categorize_model_data( $get_model_data, '/(H)/m' );
+			$hyper_series = $this->categorize_model_data_sorted( $get_model_data, '/(H)/m' );
+			//var_dump($hyper_series);
+
 			$performance_series =  $this->categorize_model_data( $get_model_data, '/(P)/m' );
 			$whisper_series =  $this->categorize_model_data( $get_model_data, '/(W)/m' );
 			$accessories =  $this->categorize_model_data( $get_model_data, '/^[0-9]/m' );
@@ -469,6 +478,54 @@ class Firman_Product_Model_Auto_Option {
 		}
 
 		return $extract_model_data;
+	}
+
+	private function categorize_model_data_sorted( $model_data, $pattern ) {
+
+		$extract_model_data_id = array();
+		$extract_model_data_model = array();
+
+		$i = 0;
+		//var_dump($model_data);
+		foreach ( $model_data as $data ) {
+
+			if ( preg_match( $pattern, $data['model'] ) ) {
+				$extract_model_data_id[] = array(
+					'pid' => $data['pid'],
+					'model' => $data['model']
+				);
+				unset( $model_data[ $i ] );
+			}
+			$i ++;
+		}
+		//var_dump($extract_model_data_id);
+
+		$j = 0;
+		$extract_model = $extract_model_data_id;
+		foreach ( $extract_model as $data ) {
+
+			$extract_model_data_model[]['model'] = $data['model'];
+
+			$j ++;
+		}
+		asort($extract_model_data_model);
+
+		$k = 0;
+		$extract_model_data_id_model = array();
+		foreach ( $extract_model_data_model as $model_data ) {
+
+			foreach ( $extract_model_data_id as $model_id ) {
+				if( $model_data['model'] == $model_id['model'] ){
+					$extract_model_data_id_model[] = array(
+						'pid' => $data['pid'],
+						'model' => $model_data['model']
+					);
+				}
+			}
+			$k++;
+		}
+
+		return $extract_model_data_id_model;
 	}
 }
 

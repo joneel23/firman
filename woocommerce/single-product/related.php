@@ -24,9 +24,41 @@ $posts_per_page = 4;
 $columns = 4;
 $woocommerce_loop['columns'] 	= $columns;
 
+$related_accessories = rwmb_meta( 'related_accessories' );
+
+if( count($related_accessories) == 5 ){
+    $columns = 5;
+    var_dump($columns);
+}
 
 
-if ( $related_products ) : ?>
+
+if ( $related_accessories ) : ?>
+
+    <div class="related products">
+
+        <div class="mx-title">
+            <h4 class="post-title"><?php _e( 'Related Accessories', 'MX' ); ?></h4>
+            <div class="line"></div>
+            <div class="clear"></div>
+        </div>
+
+		<?php woocommerce_product_loop_start(); ?>
+
+		<?php foreach ( $related_accessories as $pid ) : ?>
+
+			<?php
+			$post_object = get_post( $pid );
+			setup_postdata( $GLOBALS['post'] =& $post_object );
+			wc_get_template_part( 'content', 'product' ); ?>
+
+		<?php endforeach; ?>
+
+		<?php woocommerce_product_loop_end(); ?>
+
+    </div>
+
+<?php elseif ( $related_products ) : ?>
 
 	<div class="related products">
 		
